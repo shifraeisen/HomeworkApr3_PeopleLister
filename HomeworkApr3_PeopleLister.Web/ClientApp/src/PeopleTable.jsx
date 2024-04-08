@@ -44,15 +44,16 @@ class PeopleTable extends React.Component {
     onClearClick = () => {
         this.setState({ people: [] });
     }
-    render() {
-        return (
-            <>
-                <div className='container mt-5'>
-                    <PersonForm onTextboxChange={this.onTextboxChange}
-                        currentPerson={this.state.currentPerson}
-                        onAddClick={this.onAddClick}
-                        onClearClick={this.onClearClick} />
+    getContent = () => {
+        if (this.state.people.length === 0) {
+            return (
+                <div className='container mt-5 text-center'>
+                    <h1>No People Added</h1>
                 </div>
+            )
+        }
+        else {
+            return (
                 <div className='container mt-5'>
                     <table className='table table-hover table-striped table-bordered'>
                         <thead>
@@ -69,6 +70,19 @@ class PeopleTable extends React.Component {
                         </tbody>
                     </table>
                 </div>
+            )
+        }
+    }
+    render() {
+        return (
+            <>
+                <div className='container mt-5'>
+                    <PersonForm onTextboxChange={this.onTextboxChange}
+                        currentPerson={this.state.currentPerson}
+                        onAddClick={this.onAddClick}
+                        onClearClick={this.onClearClick} />
+                </div>
+                {this.getContent()}
             </>
         )
     }
